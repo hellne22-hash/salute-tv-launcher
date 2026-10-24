@@ -4,8 +4,8 @@ on:
 workflow_dispatch:
 push:
 paths:
-- ‘SaluteTVLauncher-download.zip’
-- ‘.github/workflows/build-apk.yml’
+- “SaluteTVLauncher-download.zip”
+- “.github/workflows/build-apk.yml”
 
 permissions:
 contents: read
@@ -21,7 +21,7 @@ uses: actions/checkout@v4
     uses: actions/setup-java@v4
     with:
       distribution: temurin
-      java-version: '17'
+      java-version: "17"
   - name: Install Gradle and unzip
     run: |
       sudo apt-get update
@@ -29,7 +29,6 @@ uses: actions/checkout@v4
   - name: Extract project
     run: |
       unzip -o SaluteTVLauncher-download.zip -d extracted
-      echo "Archive contents:"
       find extracted -maxdepth 5 -type f | sort | head -200
       if [ -f extracted/SaluteTVLauncher/settings.gradle ] || [ -f extracted/SaluteTVLauncher/settings.gradle.kts ]; then
         echo "PROJECT_DIR=extracted/SaluteTVLauncher" >> "$GITHUB_ENV"
@@ -48,6 +47,6 @@ uses: actions/checkout@v4
     uses: actions/upload-artifact@v4
     with:
       name: salute-tv-launcher-debug
-      path: '**/build/outputs/apk/debug/*.apk'
+      path: "**/build/outputs/apk/debug/*.apk"
       if-no-files-found: error
       retention-days: 7
